@@ -37,33 +37,48 @@ class PrivateRouteBase extends Component {
     };
 
     render() {
-        const { component: Component, logOut, login: { me }, ...rest } = this.props;
+        const { component: Component, logOut, login: { me }, path, ...rest } = this.props;
+        const hasProfile = me.profile
+        const inProfileRoute = path.includes("/user-profile")
+
         const isAuthenticated = this.isAuthenticated();
         return (
             <Route
                 {...rest}
                 render={props =>
                     isAuthenticated ? (
-                        (isAuthenticated === true) ? (<div>
-                            <SiderBar toggleOpen={this.state.toggleOpen} navToggle={this.navToggle} logOut={logOut} />
-                            <main className="main-content p-0 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2">
-                                <div className="main-navbar bg-white sticky-top">
-                                    <div className="p-0 container">
-                                        <Navbar navToggle={this.navToggle} logOut={logOut} user={me} />
-                                    </div>
-                                </div>
-                                <div className="main-content-container px-4 container-fluid">
-                                    <Component {...props} />
-                                </div>
-                                <Footer />
-                            </main>
-                        </div>) : (
+                        (isAuthenticated === true) 
+                        ? 
+                            (hasProfile === null && !inProfileRoute) ?
+                                <Redirect
+                                    to={{
+                                        pathname: "/user-profile",
+                                        state: { from: props.location }
+                                    }}
+                                />
+                            :
+                                (<div>
+                                    <SiderBar toggleOpen={this.state.toggleOpen} navToggle={this.navToggle} logOut={logOut} />
+                                    <main className="main-content p-0 col-sm-12 col-md-9 offset-md-3 col-lg-10 offset-lg-2">
+                                        <div className="main-navbar bg-white sticky-top">
+                                            <div className="p-0 container">
+                                                <Navbar navToggle={this.navToggle} logOut={logOut} user={me} />
+                                            </div>
+                                        </div>
+                                        <div className="main-content-container px-4 container-fluid">
+                                            <Component {...props} />
+                                        </div>
+                                        <Footer />
+                                    </main>
+                                </div>) 
+                        : 
+                        (
                             <VerifyLogin />
                         )
                     ) : (
                         <Redirect
                             to={{
-                                pathname: "/login",
+                                pathname: "/catalogo",
                                 state: { from: props.location }
                             }}
                         />

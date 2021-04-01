@@ -8,6 +8,11 @@ const SUBMIT = 'LOGIN_SUBMIT';
 const LOADER = 'LOGIN_LOADER';
 const ME = 'LOGIN_ME';
 
+const GENDER_OPTIONS = [
+    'Masculino',
+    'Femenino'
+]
+
 export const constants = {
     SUBMIT,
 };
@@ -44,9 +49,32 @@ export const onSubmit = (data = {}) => (dispatch, getStore) => {
     });
 };
 
+const formatMe = (user) => {
+    const me = {
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.label,
+        is_superuser: user.is_superuser,
+        is_staff: user.is_staff,
+        username: user.username,
+        profile: {
+            id: user.profile.id,
+            avatar: user.profile.avatar,
+            phone: user.profile.phone,
+            address: user.profile.address,
+            gender: {label: GENDER_OPTIONS[user.profile.gender], value: user.profile.gender },
+            nit: user.profile.activo,
+            creado: user.profile.creado,
+            modificado: user.profile.modificado,
+            user: user.profile.user
+        }
+    }
+    return me
+}
+
 export const getMe = () => (dispatch) => {
-    api.get('/user/me').then(me => {
-        dispatch(initializeForm('profile', me));
+    api.get('/user/me').then(me => {                
+        //dispatch(initializeForm('profile', me));        
         dispatch(setMe(me));
     })
         .catch(() => {

@@ -28,19 +28,33 @@ class Acciones extends Component {
     };
 
     render() {
-        const { id, ver, editar, eliminar } = this.props;
+        const { id, ver, editar, eliminar, lote, data } = this.props;        
+        const miPath = window.location.hash == "#/producto" ? true : false        
 
         return (
             <div className="d-flex justify-content-center">
+                {(lote !== undefined) && (
+                    <Link style={{cursor: "pointer", color: "#256428"}} to={`${lote}/${id}/lotes`} ><i className="material-icons">line_weight</i></Link>
+                )}
                 {(ver !== undefined) && (
                     <Link to={`${ver}/${id}/`} className="px-2" ><i className="material-icons">remove_red_eye</i></Link>
                 )}
                 {(editar !== undefined) && (
                     <Link className="text-warning" to={`${editar}/${id}/editar`} ><i className="material-icons">edit</i></Link>
                 )}
-                {(eliminar !== undefined) && (
-                    <a className="px-2" style={{cursor: "pointer", color: "#c4183c"}} onClick={this.eliminar(id)}><i className="material-icons">delete</i></a>
-                )}
+                {
+                    (miPath)
+                    ?
+                        (data.total === null) &&
+                        (eliminar !== undefined) && (
+                            <a className="px-2" style={{cursor: "pointer", color: "#c4183c"}} onClick={this.eliminar(id)}><i className="material-icons">delete</i></a>
+                        )
+                        
+                    :
+                    (eliminar !== undefined) && (
+                        <a className="px-2" style={{cursor: "pointer", color: "#c4183c"}} onClick={this.eliminar(id)}><i className="material-icons">delete</i></a>
+                    )
+                }                
             </div>
         );
     }
@@ -50,6 +64,6 @@ Acciones.propTypes = {
 
 export function standardActions(acciones) {
     return (cell, row) => {
-        return ( <Acciones id={cell} {...acciones}/> )
+        return ( <Acciones id={cell} data={row} {...acciones}/> )
     };
 }

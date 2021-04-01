@@ -11,13 +11,18 @@ class Profile extends Component {
         this.state = {avatar: null};
     }
 
+    componentDidMount = () => {
+        const { initialProfile } = this.props
+        initialProfile()
+    }
+
     setAvatar = (avatar) => {
         this.setState({avatar});
     };
 
     update = (data) => {
         const { update } = this.props;
-        update({...data, avatar: null}, [{"file": this.state.avatar, "name": "avatar"}]);
+        update({...data, avatar: null}, [{"file": this.state.avatar, "name": "avatar"}]);        
     };
 
     render() {

@@ -4,12 +4,13 @@ import { validate, validatorFromFunction, validators, combine } from 'validate-r
 import {renderField, renderFilePicker, SelectField, renderNumber} from '../../Utils/renderField/renderField';
 
 const genders = [
-    {"label": "Masculino", "value": 0},
+    {"label": "Masculino", "value": '0'},
     {"label": "Femenino", "value": 1},
 ];
 
 const ProfileForm = (props) => {
     const { handleSubmit, me, setAvatar } = props;
+    
     return (
             <form action="" onSubmit={handleSubmit} className="py-4">
                 <h2>PERFIL</h2>
@@ -49,15 +50,30 @@ const ProfileForm = (props) => {
                                     className="form-control"
                                 />
                             </div>
+
                             <div className="form-group has-feedback">
                                 <label htmlFor="profile.gender">Género</label>
                                 <Field name="profile.gender" placeholder="Género" component={SelectField} options={genders} className="form-control" />
                             </div>
-                        </div>
-                        <div className="form-group has-feedback flex-1 mx-3">
+
                             <div className="form-group has-feedback">
                                 <label htmlFor="profile.address">Dirección</label>
                                 <Field name="profile.address" placeholder="Dirección" component={renderField} type="text" className="form-control" />
+                            </div>
+                        </div>
+
+                        <div className="form-group has-feedback flex-1 mx-3">                            
+                            <div className="form-group has-feedback">
+                                <label htmlFor="email">Correo electronico</label>
+                                <Field name="email" placeholder="ejemplo@gmail.com" component={renderField} type="mail" className="form-control" />
+                            </div>
+
+                            <div className="form-group has-feedback">
+                                <label htmlFor="profile.nit">NIT</label>
+                                <Field name="profile.nit" placeholder="nit" 
+                                    component={renderNumber} type="text" className="form-control" 
+                                    numberFormat="#######-#"
+                                />
                             </div>
                         </div>
                     </div>
@@ -71,4 +87,18 @@ const ProfileForm = (props) => {
 
 export default reduxForm({
     form: 'profile', // a unique identifier for this form
+    validate: (data) => {        
+        return validate(data, {
+            username: validators.exists()('Este campo es requerido'),
+            first_name: validators.exists()('Este campo es requerido'),
+            last_name: validators.exists()('Este campo es requerido'),
+            email: validators.exists()('Este campo es requerido'),
+            profile: {
+                phone: validators.exists()('Este campo es requerido'),
+                gender: validators.exists()('Este campo es requerido'),
+                address: validators.exists()('Este campo es requerido'),
+                nit: validators.exists()('Este campo es requerido'),
+            },
+        }); 
+    },
 })(ProfileForm);

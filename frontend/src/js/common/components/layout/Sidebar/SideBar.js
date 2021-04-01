@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link, NavLink} from "react-router-dom";
+import MiLogo from '../../../../../assets/img/MiLogo.svg'
 
 class SideBar extends Component {
     constructor(props) {
@@ -17,8 +18,8 @@ class SideBar extends Component {
                             <div className="d-table m-auto">
                                 <img id="main-logo"
                                     className="d-inline-block align-top mr-1"
-                                    src={require('assets/img/logo.png')}
-                                    alt="Logo" />
+                                    src={MiLogo}
+                                    alt="Logo" />                                    
                             </div>
                         </a>
                         <a  className="toggle-sidebar d-sm-inline d-md-none d-lg-none"
@@ -32,12 +33,28 @@ class SideBar extends Component {
                         <li className="nav-item">
                             <NavLink to="/" exact className="nav-link " activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">edit</i>
+                                    <i className="material-icons">home</i>
                                 </div>
                                 <span>Home</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
+                            <NavLink to="/producto" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i className="material-icons">shopping_basket</i>
+                                </div>
+                                <span>Productos</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/catalogo-user" className="nav-link" activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i className="material-icons">work</i>
+                                </div>
+                                <span>Ver como comprador</span>
+                            </NavLink>
+                        </li>                        
+                        {/* <li className="nav-item">
                             <NavLink to="/page2" className="nav-link" activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">
                                     <i className="material-icons">vertical_split</i>
@@ -68,7 +85,7 @@ class SideBar extends Component {
                                 </div>
                                 <span>Tabs</span>
                             </NavLink>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link to="/login" onClick={logOut} className="nav-link">
                                 <div className="d-inline-block item-icon-wrapper">

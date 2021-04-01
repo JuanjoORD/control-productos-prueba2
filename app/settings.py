@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'api',
     'mptt',
     'django.contrib.sites',
-    'djcelery',
+    #'djcelery',
     'debug_toolbar',
 ]
 
@@ -141,9 +141,11 @@ MEDIA_URL = '/media/'
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ES'
 
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Guatemala'
 
 USE_I18N = True
 

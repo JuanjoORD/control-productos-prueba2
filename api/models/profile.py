@@ -17,6 +17,7 @@ class Profile(models.Model):
     phone = models.CharField(max_length=15, null=True, blank=True)
     address = models.CharField(max_length=250, null=True, blank=True)
     gender = models.PositiveSmallIntegerField(choices=GENDERS, null=True, blank=True)
+    nit = models.CharField(max_length=9)
 
     activo = models.BooleanField(default=True)
     creado = models.DateTimeField(auto_now_add=True)

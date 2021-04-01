@@ -75,6 +75,7 @@ class UserViewset(viewsets.ModelViewSet):
             user.username = data["username"]
             user.first_name = data["first_name"]
             user.last_name = data["last_name"]
+            user.email = data.get("email", user.email)
             perfil, created = Profile.objects.get_or_create(user=user)
             if avatar is not None:
                 perfil.avatar = File(avatar)
@@ -83,6 +84,7 @@ class UserViewset(viewsets.ModelViewSet):
                 perfil.phone = profile.get("phone", perfil.phone)
                 perfil.address = profile.get("address", perfil.address)
                 perfil.gender = profile.get("gender", perfil.gender)
+                perfil.nit = profile.get("nit", perfil.nit)
             user.save()
             perfil.save()
             serializer = UserReadSerializer(user)
