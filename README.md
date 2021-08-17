@@ -6,9 +6,14 @@
 
 Before you dive into anything, see for yourself how easy you can setup a full workflow framework for your `development` and `deployment` for your real world project.
 
+IMPORTANT: This project uses as a base the CIANCODERS repository
+```
+https://github.com/CianCoders/react-redux-starter.git
+```
+
 Step 1: Clone this repo
 ```
-git clone https://github.com/CianCoders/react-redux-starter.git
+git clone https://github.com/JuanjoORD/control-productos-prueba2.git
 cd react-redux-starter
 ```
 
